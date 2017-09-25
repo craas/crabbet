@@ -5,6 +5,8 @@ var express = require('express'),
     Team = require('./api/models/teamModel'), //created model loading here
     bodyParser = require('body-parser');
 
+
+
 // mongoose instance connection url connection
 //mongoose.Promise = global.Promise;
 //mongoose.connect('mongodb://localhost:27017/Tododb');
@@ -22,7 +24,10 @@ var options = {
     replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }
 };
 //mongodb://<dbuser>:<dbpassword>@ds129342.mlab.com:29342/crabstats
-var mongodbUri = 'mongodb://craas:Xx2A7JhsunutRpu2@ds129342.mlab.com:29342/crabstats';
+var mongodbUri = process.env.mongodbUri || 'test'
+
+
+//var mongodbUri = 'mongodb://craas:Xx2A7JhsunutRpu2@ds129342.mlab.com:29342/crabstats';
 
 mongoose.connect(mongodbUri, options);
 var conn = mongoose.connection;
