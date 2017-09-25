@@ -3,6 +3,7 @@ var express = require('express'),
     port = process.env.PORT || 3000,
     mongoose = require('mongoose'),
     Team = require('./api/models/teamModel'), //created model loading here
+    Match = require('./api/models/matchModel'), //created model loading here
     bodyParser = require('body-parser')
     dotenv = require('dotenv').config();
 
@@ -43,8 +44,10 @@ app.use(bodyParser.json());
 
 
 
-var routes = require('./api/routes/teamRoutes'); //importing route
-routes(app); //register the route
+var teamroutes = require('./api/routes/teamRoutes'); //importing route
+var matchroutes = require('./api/routes/matchRoutes'); //importing route
+teamroutes(app); //register the route
+matchroutes(app);
 
 app.use(function (req, res) {
     res.status(404).send({ url: req.originalUrl + ' not found' })
