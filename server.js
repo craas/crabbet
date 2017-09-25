@@ -3,7 +3,9 @@ var express = require('express'),
     port = process.env.PORT || 3000,
     mongoose = require('mongoose'),
     Team = require('./api/models/teamModel'), //created model loading here
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser')
+    dotenv = require('dotenv').config();
+
 
 
 
@@ -23,7 +25,7 @@ var options = {
     server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } },
     replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }
 };
-var mongodbUri = process.env.mongodbUri || 'test'
+var mongodbUri = process.env.mongodbUri;
 
 mongoose.connect(mongodbUri, options);
 var conn = mongoose.connection;
