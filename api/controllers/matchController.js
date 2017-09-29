@@ -132,3 +132,40 @@ exports.read_rcards_hometeam = function (req, res) {
 
 };
 
+exports.read_goals_hometeam = function (req, res) {
+    Matches.aggregate([{
+        $match: { 'HomeTeam': req.params.teamId },
+    }, {
+        $group: {
+            _id: null,
+            total: {
+                $avg: "$FTHG"
+            }
+        }
+    }], function (err, sum) {
+        if (err)
+            res.send(err);
+
+        res.send(sum);
+    });
+
+};
+
+exports.read_goals_awayteam = function (req, res) {
+    Matches.aggregate([{
+        $match: { 'AwayTeam': req.params.teamId },
+    }, {
+        $group: {
+            _id: null,
+            total: {
+                $avg: "$FTAG"
+            }
+        }
+    }], function (err, sum) {
+        if (err)
+            res.send(err);
+
+        res.send(sum);
+    });
+
+};

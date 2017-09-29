@@ -25,6 +25,11 @@ module.exports = function(app) {
   app.route('/rcardshome/:teamId')
       .get(matches.read_rcards_hometeam)
 
+  app.route('/goalshome/:teamId')
+      .get(matches.read_goals_hometeam)
+  app.route('/goalsaway/:teamId')
+      .get(matches.read_goals_awayteam)
+
 
 
 };
