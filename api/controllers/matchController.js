@@ -26,7 +26,7 @@ exports.read_corners_hometeam = function (req, res) {
         $group: {
             _id: null,
             total: {
-                $sum: "$HC"
+                $avg: "$HC"
             }
         }
     }], function (err, sum) {
@@ -37,6 +37,8 @@ exports.read_corners_hometeam = function (req, res) {
     });
 };
 
+
+
 exports.read_corners_awayteam = function (req, res) {
     Matches.aggregate([{
         $match: { 'AwayTeam': req.params.teamId },
@@ -44,7 +46,7 @@ exports.read_corners_awayteam = function (req, res) {
         $group: {
             _id: null,
             total: {
-                $sum: "$AC"
+                $avg: "$AC"
             }
         }
         }], function (err, sum) {
@@ -56,4 +58,77 @@ exports.read_corners_awayteam = function (req, res) {
    
 };
 
+exports.read_ycards_awayteam = function (req, res) {
+    Matches.aggregate([{
+        $match: { 'AwayTeam': req.params.teamId },
+    }, {
+        $group: {
+            _id: null,
+            total: {
+                $avg: "$AY"
+            }
+        }
+    }], function (err, sum) {
+        if (err)
+            res.send(err);
+
+        res.send(sum);
+    });
+
+};
+exports.read_ycards_hometeam = function (req, res) {
+    Matches.aggregate([{
+        $match: { 'HomeTeam': req.params.teamId },
+    }, {
+        $group: {
+            _id: null,
+            total: {
+                $avg: "$HY"
+            }
+        }
+    }], function (err, sum) {
+        if (err)
+            res.send(err);
+
+        res.send(sum);
+    });
+
+};
+exports.read_rcards_awayteam = function (req, res) {
+    Matches.aggregate([{
+        $match: { 'AwayTeam': req.params.teamId },
+    }, {
+        $group: {
+            _id: null,
+            total: {
+                $avg: "$AR"
+            }
+        }
+    }], function (err, sum) {
+        if (err)
+            res.send(err);
+
+        res.send(sum);
+    });
+
+};
+
+exports.read_rcards_hometeam = function (req, res) {
+    Matches.aggregate([{
+        $match: { 'HomeTeam': req.params.teamId },
+    }, {
+        $group: {
+            _id: null,
+            total: {
+                $avg: "$HR"
+            }
+        }
+    }], function (err, sum) {
+        if (err)
+            res.send(err);
+
+        res.send(sum);
+    });
+
+};
 
